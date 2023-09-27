@@ -42,12 +42,12 @@ export const getSingleService = async (req, res) => {
     const id = req.params.id;
 
     try {
-        const service = await Service.findById(id).select("-password").select("-role");
+        const service = await Service.findById(id).populate("reviews");
 
-        res.status(200).json({ success: true, message: "User found.", data: service });
+        res.status(200).json({ success: true, message: "Service found", data: service });
     }
     catch (err) {
-        res.status(404).json({ success: false, message: "User not found" });
+        res.status(404).json({ success: false, message: "Service not found" });
     }
 }
 
@@ -60,12 +60,12 @@ export const allService = async (req, res) => {
             services = await Service.find({ name: { $regex: query, $options: "i" } })
         }
         else {
-            services = await Service.find({}).select("-password").select("-role");
+            services = await Service.find({});
         }
 
-        res.status(200).json({ success: true, message: "Users found", data: services });
+        res.status(200).json({ success: true, message: "Services found", data: services });
     }
     catch (err) {
-        res.status(500).json({ success: false, message: "User not found." });
+        res.status(500).json({ success: false, message: "No services found" });
     }
 }

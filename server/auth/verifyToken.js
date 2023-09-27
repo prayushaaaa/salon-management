@@ -25,7 +25,7 @@ export const authenticate = async (req, res, next) => {
     }
 }
 
-export const restrict = roles => async (req, res) => {
+export const restrict = roles => async (req, res, next) => {
     const userId = req.userId;
 
     let user;

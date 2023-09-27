@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema(
   {
-    employee: {
+    service: {
       type: mongoose.Types.ObjectId,
-      ref: "Employee",
+      ref: "Service",
       required: true,
     },
     user: {
@@ -15,10 +15,6 @@ const bookingSchema = new mongoose.Schema(
     ticketPrice: { type: String, required: true },
     appointmentDate: {
       type: Date,
-      required: true,
-    },
-    appointmentDate: {
-      type: Time,
       required: true,
     },
     status: {

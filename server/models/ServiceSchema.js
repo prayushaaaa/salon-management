@@ -25,8 +25,15 @@ const serviceSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    avgRating: Number, // Making avgRating optional
-    totalRating: Number // Making totalRating optional
+    reviews: [{ type: mongoose.Types.ObjectId, ref: "Review" }],
+    averageRating: {
+        type: Number,
+        default: 0,
+    },
+    totalRating: {
+        type: Number,
+        default: 0,
+    },
 });
 
 export default mongoose.model('Service', serviceSchema);
