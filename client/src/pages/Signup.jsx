@@ -29,7 +29,7 @@ const Signup = () => {
 
     return <section className='px-5 lg:px-0'>
         <div className='w-full max-w-[570px] mx-auto rounded-lg shadow-md md:p-10'>
-            <h3 className='text-headingColor text-[22px] leading-9 font-bold mb-10'>Hello,<span className='text-primaryColor'> Welcome</span> Back!</h3>
+            <h3 className='text-headingColor text-[22px] leading-9 font-bold mb-10'>Hello, Welcome!</h3>
 
             <form action='' className='py-4 md:py-0' onSubmit={submitHandler}>
                 <div className='mb-5'>
@@ -67,7 +67,7 @@ const Signup = () => {
                             onChange={handleInputChange}
                             className='text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none cursor-pointer'>
                             <option value='customer'>Client</option>
-                            <option value='employee'>Employee</option>
+                            {/* <option value='employee'>Employee</option> */}
                         </select>
                     </label>
 

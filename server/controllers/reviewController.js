@@ -4,7 +4,7 @@ import Service from "../models/ServiceSchema.js";
 export const getAllReviews = async (req, res) => {
     try {
         const reviews = await Review.find({});
-        res.status(200).json({ status: true, message: "Successful", data: reviews });
+        res.status(200).json({ success: true, message: "Reviews found", data: reviews });
     } catch (err) {
         res.status(404).json({ status: true, message: "Not found" });
     }

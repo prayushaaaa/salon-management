@@ -1,25 +1,25 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../assets/images/companyLogo.png';
 // import {RiLinkedin } from 'react-icons/ri';
-import {AiFillYoutube, AiFillGithub, AiOutlineInstagram, AiFillInstagram, AiFillFacebook, AiFillLinkedin} from 'react-icons/ai';
+import { AiFillYoutube, AiFillGithub, AiOutlineInstagram, AiFillInstagram, AiFillFacebook, AiFillLinkedin } from 'react-icons/ai';
 
 const socialLinks = [
     {
         path: "https://www.youtube.com/c/CodingWithMuhib",
-        icon: <AiFillYoutube className='group-hover:text-white w-4 h-5'/>
+        icon: <AiFillYoutube className='group-hover:text-white w-4 h-5' />
     },
     {
         path: "https://www.instagram.com/dhokaima_cafe/",
-        icon: <AiOutlineInstagram className='group-hover:text-white w-4 h-5'/>
+        icon: <AiOutlineInstagram className='group-hover:text-white w-4 h-5' />
     },
     {
         path: "https://www.linkedin.com/company/deerwalk-data-society/",
-        icon: <AiFillLinkedin className='group-hover:text-white w-4 h-5'/>
+        icon: <AiFillLinkedin className='group-hover:text-white w-4 h-5' />
     },
     {
         path: "https://www.facebook.com/bbeautiquee",
-        icon: <AiFillFacebook className='group-hover:text-white w-4 h-5'/>
+        icon: <AiFillFacebook className='group-hover:text-white w-4 h-5' />
     },
 
 ];
@@ -32,10 +32,10 @@ const quickLinks01 = [
     {
         path: "/",
         display: "About Us",
-    },{
+    }, {
         path: "/services",
         display: "Services",
-    },{
+    }, {
         path: "/",
         display: "Blog",
     },
@@ -46,12 +46,12 @@ const quickLinks02 = [
         display: "Employees",
     },
     {
-        path: "/",
+        path: "/services",
         display: "Services",
-    },{
+    }, {
         path: "/",
         display: "Location",
-    },{
+    }, {
         path: "/",
         display: "Professionals",
     },
@@ -74,7 +74,7 @@ const Footer = () => {
         <div className='container'>
             <div className='flex justify-between flex-col md:flex-row flex-wrap gap-[30px]'>
                 <div>
-                    <img src={logo} alt='' className='h-[55px] w-[55px]'/>
+                    <img src={logo} alt='' className='h-[55px] w-[55px]' />
                     <p className='text-[16px] leading-7 font-[400] text-textColor mt-4'>
                         Copyright &copy; {year} all rights reserved
                     </p>
@@ -92,8 +92,8 @@ const Footer = () => {
                             </Link>
                         </li>)}
                     </ul>
-                </div>           
-            
+                </div>
+
                 <div>
                     <h2 className='text-[20px] leading-[30px] font-[700] mb-6 text-headingColor'>I want to: </h2>
                     <ul>
@@ -103,7 +103,7 @@ const Footer = () => {
                             </Link>
                         </li>)}
                     </ul>
-                </div> 
+                </div>
 
                 <div>
                     <h2 className='text-[20px] leading-[30px] font-[700] mb-6 text-headingColor'>Support</h2>
@@ -114,7 +114,7 @@ const Footer = () => {
                             </Link>
                         </li>)}
                     </ul>
-                </div> 
+                </div>
 
             </div>
         </div>
