@@ -1,12 +1,19 @@
-import React, { Component } from 'react'
+import React from 'react'
 import avatarImg from "../assets/images/avatar-icon.png";
 import formatDate from '../../utils/formatDate';
-import {AiFillStar} from 'react-icons/ai';
-import {useState}  from 'react';
+import { AiFillStar } from 'react-icons/ai';
+import { useState, useContext } from 'react';
 import FeedbackForm from '../components/FeedbackForm';
+import { BASE_URL } from '../../utils/config';
+import { useParams } from 'react-router-dom';
+import useFetch from '../hooks/useFetch';
+
 
 const Feedback = () => {
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
+    const { id } = useParams()
+    const { data: feedback, loading, error } = useFetch(`${BASE_URL}/services/${id}/reviews`);
+
     return <div>
         <div className='mb-[50px]'>
             <h4 className='text-[20px] leading-[30px] font-bold text-headingColor mb-[30px]'>All reviews (272)</h4>
@@ -28,14 +35,14 @@ const Feedback = () => {
                 </div>
 
                 <div className='flex gap-1'>
-                    {[ ...Array(5).keys()].map((_,index)=> (
-                        <AiFillStar key={index} color='#0067FF'/>
+                    {[...Array(5).keys()].map((_, index) => (
+                        <AiFillStar key={index} color='#0067FF' />
                     ))}
                 </div>
             </div>
         </div>
         {!showFeedbackForm && <div className='text-center'>
-            <button className='btn' onClick={()=>setShowFeedbackForm(true)}>Give feedback</button>
+            <button className='btn' onClick={() => setShowFeedbackForm(true)}>Give feedback</button>
         </div>}
 
         {showFeedbackForm && <FeedbackForm />}

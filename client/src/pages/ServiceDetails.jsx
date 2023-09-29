@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import haircutImg from "../assets/images/haircut.png";
 import starIcon from '../assets/images/star.png';
 import ServiceAbout from './ServiceAbout';
@@ -7,9 +7,12 @@ import SidePanel from '../components/SidePanel';
 import useFetch from '../hooks/useFetch.js';
 import { BASE_URL } from '../../utils/config.js';
 import { useParams } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const ServiceDetails = () => {
     const { id } = useParams();
+
+    const { user } = useContext(AuthContext);
 
     const { data: service, loading, error } = useFetch(`${BASE_URL}/services/${id}`);
 

@@ -9,4 +9,3 @@ router.route('/')
     .post(authenticate, restrict(['customer']), createReview);
 
 export default router;
-

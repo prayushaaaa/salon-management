@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import { BASE_URL } from '../../utils/config.js';
+
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -11,10 +14,42 @@ const Login = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
+    const { dispatch } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const submitHandler = async event => {
+        event.preventDefault();
+
+        dispatch({ type: 'LOGIN_START' })
+
+        try {
+            const res = await fetch(`${BASE_URL}/auth/login`, {
+                method: 'post',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                formData: 'include',
+                body: JSON.stringify(formData)
+            });
+
+            const result = await res.json();
+            if (!res.ok) alert(result.message);
+
+            console.log(result.data);
+
+            dispatch({ type: 'LOGIN_SUCCESS', payload: result.data });
+            navigate('/');
+
+        }
+        catch (err) {
+            dispatch({ type: 'LOGIN_FAILURE', payload: err.message });
+        }
+    }
+
     return <section className='px-5 lg:px-0'>
         <div className='w-full max-w-[570px] mx-auto rounded-lg shadow-md md:p-10'>
             <h3 className='text-headingColor text-[22px] leading-9 font-bold mb-10'>Hello,<span className='text-primaryColor'> Welcome</span> Back!</h3>
-            <form action='' className='py-4 md:py-0'>
+            <form action='' className='py-4 md:py-0' onSubmit={submitHandler}>
                 <div className='mb-5'>
                     <input type='email' placeholder='Enter Your Email' name='email' value={formData.email} onChange={handleInputChange} className='w-full py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer' required />
                 </div>
