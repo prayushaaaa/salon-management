@@ -20,7 +20,7 @@ const ServiceDetails = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [service]);
+    }, []);
 
     return <section>
         <div className='max-w-[1170px] px-5 mx-auto'>

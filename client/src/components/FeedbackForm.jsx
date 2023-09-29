@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import { AiFillStar } from 'react-icons/ai';
 import { BASE_URL } from '../../utils/config.js';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const FeedbackForm = () => {
     const { id } = useParams();
@@ -36,16 +36,13 @@ const FeedbackForm = () => {
                 },
                 body: JSON.stringify(reviewObj)
             });
-
-            console.log(`${BASE_URL}/services/${id}/reviews`);
-            console.log('User Token:', user);
-
             const result = await res.json();
             if (!res.ok) alert(result.message);
+            alert('Review submitted!');
 
         }
         catch (err) {
-            alert(err.message)
+            null;
         }
     }
     return (

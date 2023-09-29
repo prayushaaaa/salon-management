@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ServiceList from '../components/ServiceList';
 import { services } from '../assets/data/services';
 
 const Services = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <>
             <section className='bg-[#fff9ea]'>

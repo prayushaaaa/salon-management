@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Contact = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return <section>
         <div className='px-4 mx-auto max-w-screen-md'>
             <h2 className='heading text-center'>Contact us</h2>

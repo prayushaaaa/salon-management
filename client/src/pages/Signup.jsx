@@ -1,9 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { BASE_URL } from '../../utils/config.js';
 
 const Signup = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewURL, setPreviewURL] = useState('');
 
