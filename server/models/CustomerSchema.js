@@ -13,6 +13,11 @@ const CustomerSchema = new mongoose.Schema({
   },
   points: { type: Number },
   gender: { type: String, enum: ["male", "female", "other"] },
+  isApproved: {
+    type: String,
+    enum: ["pending", "approved", "cancelled"],
+    default: "pending",
+  },
   //   bloodType: { type: String },
   appointments: [{ type: mongoose.Types.ObjectId, ref: "Appointment" }],
 });

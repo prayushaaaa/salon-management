@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import { AiFillStar } from 'react-icons/ai';
 import { BASE_URL } from '../../utils/config.js';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const FeedbackForm = () => {
     const { id } = useParams();
@@ -44,7 +44,8 @@ const FeedbackForm = () => {
         catch (err) {
             null;
         }
-    }
+    };
+
     return (
         <div>
             <form action=''>

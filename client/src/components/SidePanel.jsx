@@ -1,6 +1,28 @@
-import React from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import React, { useContext } from 'react'
+import { BASE_URL } from '../../utils/config';
 
 const SidePanel = (props) => {
+  const { id } = useParams();
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleButtonClick = async e => {
+    e.preventDefault();
+    try {
+      if (!user || user === undefined || user === null) {
+        alert('Please Sign in ')
+      }
+      else {
+        navigate(`/services/${id}/book_appointment`);
+      }
+    }
+    catch (err) {
+      null;
+    }
+  };
+
   return <div className='shadow-lg p-3 lg:p-5 rounded-md'>
     <div className='flex items-center justify-between'>
       <p className='text__para mt-0 font-semibold'>Price</p>
@@ -11,7 +33,7 @@ const SidePanel = (props) => {
       <span className='text-[14px] leading-7 lg:text-[20px] lg:leading-8'> {props.points}</span>
     </div>
 
-    <div className='mt-[30px]'>
+    {/* <div className='mt-[30px]'>
       <p className='text__para mt-0 font-semibold text-headingColor'>
         Available time slots:
       </p>
@@ -42,9 +64,9 @@ const SidePanel = (props) => {
           </p>
         </li>
       </ul>
-    </div>
+    </div> */}
 
-    <button className='btn px-2 w-full rounded-md'>Book Appointment</button>
+    <button className='btn px-2 w-full rounded-md' onClick={handleButtonClick}>Book Appointment</button>
   </div>
 }
 

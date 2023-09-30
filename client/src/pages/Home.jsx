@@ -112,10 +112,10 @@ const Home = () => {
                                     </p>
 
 
-                                    <Link to='/services' className='w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center justify-center group hover:bg-primaryColor hover:border-none'>
+                                    {/* <Link to='/services' className='w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center justify-center group hover:bg-primaryColor hover:border-none'>
                                         <BsArrowRight className='group-hover:text-white w-6 h-5' />
 
-                                    </Link>
+                                    </Link> */}
 
 
                                 </div>
@@ -134,10 +134,10 @@ const Home = () => {
                                         Visit our salon, where our attentive staff will provide you with personalized services tailored to your preferences.
                                     </p>
 
-                                    <Link to='/services' className='w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center justify-center group hover:bg-primaryColor hover:border-none'>
+                                    {/* <Link to='/services' className='w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center justify-center group hover:bg-primaryColor hover:border-none'>
                                         <BsArrowRight className='group-hover:text-white w-6 h-5' />
 
-                                    </Link>
+                                    </Link> */}
 
 
                                 </div>
@@ -156,11 +156,10 @@ const Home = () => {
                                         Sit back and relax as our professionals work their magic. Share your experience and schedule your next visit!
                                     </p>
 
-                                    <Link to='/services' className='w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center justify-center group hover:bg-primaryColor hover:border-none'>
+                                    {/* <Link to='/services' className='w-[44px] h-[44px] rounded-full border border-solid border-[#181A1E] mt-[30px] mx-auto flex items-center justify-center group hover:bg-primaryColor hover:border-none'>
                                         <BsArrowRight className='group-hover:text-white w-6 h-5' />
 
-                                    </Link>
-
+                                    </Link> */}
 
                                 </div>
                             </div>

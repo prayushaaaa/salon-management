@@ -12,7 +12,7 @@ const bookingSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    ticketPrice: { type: String, required: true },
+    price: { type: String, required: true },
     appointmentDate: {
       type: Date,
       required: true,
@@ -25,6 +25,10 @@ const bookingSchema = new mongoose.Schema(
     isPaid: {
       type: Boolean,
       default: true,
+    },
+    phoneNumber: {
+      type: String, // Adjust the data type as needed (e.g., String for phone numbers)
+      required: true,
     },
   },
   { timestamps: true }

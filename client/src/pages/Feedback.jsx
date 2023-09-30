@@ -22,7 +22,7 @@ const Feedback = () => {
             {!loading && !error && (
                 <div>
                     <div className='mb-[50px]'>
-                        <h4 className='text-[20px] leading-[30px] font-bold text-headingColor mb-[30px]'>All reviews (272)</h4>
+                        <h4 className='text-[20px] leading-[30px] font-bold text-headingColor mb-[30px]'>All reviews ({feedbacks.length})</h4>
                         {feedbacks.map((feedback, index) => (
                             <div className='flex justify-between gap-10 mb-[30px]' key={index}>
                                 <div className='flex gap-3'>

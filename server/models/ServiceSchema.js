@@ -25,6 +25,19 @@ const serviceSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    category: {
+        type: String,
+        required: true
+    },
+    about: {
+        type: String,
+        required: true
+    },
+    timings: {
+        type: Array,
+        required: true
+    },
+
     reviews: [{ type: mongoose.Types.ObjectId, ref: "Review" }],
     averageRating: {
         type: Number,
@@ -37,4 +50,3 @@ const serviceSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('Service', serviceSchema);
-
