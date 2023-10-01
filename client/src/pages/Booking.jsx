@@ -9,6 +9,11 @@ const BookingAppointment = () => {
     const { id } = useParams();
 
     const { data: service, loading, error } = useFetch(`${BASE_URL}/services/${id}`);
+    const { data: employees } = useFetch(`${BASE_URL}/employees`);
+
+    const employee = employees.find(employee => service.category == employee.category);
+    // console.log(employees);
+    console.log(employee);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -24,15 +29,56 @@ const BookingAppointment = () => {
 
     const handleInputChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        setIsAvailable(false);
     }
 
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
 
-    const checkAvailability = async e => {
 
+    const checkAvailability = async (e) => {
+        e.preventDefault();
+
+        try {
+            const requestBody = {
+                date: formData.date,
+                time: formData.time,
+                service,
+                employee
+            };
+
+            const availabilityUrl = `${BASE_URL}/appointments/check_availability`;
+
+            const res = await fetch(availabilityUrl, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${user.token}`,
+                },
+                body: JSON.stringify(requestBody),
+            });
+
+            if (!res.ok) {
+                const result = await res.json();
+                alert(result.message);
+                return;
+            }
+
+            const result = await res.json();
+
+            setIsAvailable(result.data);
+
+            if (result.data) {
+                alert("Booking available");
+            } else {
+                alert("Booking not available");
+            }
+        }
+        catch (err) {
+            console.error(err);
+            alert('Failed to check availability');
+        }
     }
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -50,7 +96,8 @@ const BookingAppointment = () => {
                 ...formData,
                 service,
                 user,
-                price: service.price
+                price: service.price,
+                employee
             };
 
             const res = await fetch(`${BASE_URL}/appointments/book_appointment/${id}`, {
@@ -65,8 +112,8 @@ const BookingAppointment = () => {
 
             const result = await res.json();
             if (!res.ok) alert(result.message);
+            else navigate('/booked');
 
-            navigate('/booked');
         }
         catch (err) {
             alert(err.message);
@@ -122,20 +169,20 @@ const BookingAppointment = () => {
                         </p>
                     </div>
                     <div className='mt-7'>
-                        <button
+                        {!isAvailable && <button
                             className='w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3'
                             onClick={checkAvailability}
                         >
                             Check Availability
-                        </button>
+                        </button>}
 
-                        <button
+                        {isAvailable && <button
                             type='submit'
                             className='w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3'
 
                         >
                             Book Now
-                        </button>
+                        </button>}
                     </div>
                 </form>
             </div>
