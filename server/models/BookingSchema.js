@@ -9,13 +9,17 @@ const bookingSchema = new mongoose.Schema(
     },
     user: {
       type: mongoose.Types.ObjectId,
-      ref: "User",
+      ref: "Customer",
       required: true,
     },
     price: { type: String, required: true },
-    appointmentDate: {
+    date: {
       type: Date,
       required: true,
+    },
+    time: {
+      type: String,
+      required: true
     },
     status: {
       type: String,
@@ -24,10 +28,10 @@ const bookingSchema = new mongoose.Schema(
     },
     isPaid: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     phoneNumber: {
-      type: String, // Adjust the data type as needed (e.g., String for phone numbers)
+      type: String,
       required: true,
     },
   },

@@ -6,16 +6,15 @@ const EmployeeSchema = new mongoose.Schema({
   name: { type: String, required: true },
   phone: { type: Number },
   photo: { type: String },
-  role: {
-    type: String,
-  },
-  specialization: { type: String },
-  category: { type: String },
+  role: { type: String, required: true },
+  specialization: { type: String, required: true },
+  category: { type: String }, // Add the 'category' field here
 
   timeSlots: { type: Array },
 
   isApproved: {
     type: String,
+    required: true,
     enum: ["pending", "approved", "cancelled"],
     default: "pending",
   },

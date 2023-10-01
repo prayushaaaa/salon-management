@@ -1,7 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import React, { useContext } from 'react'
-import { BASE_URL } from '../../utils/config';
 
 const SidePanel = (props) => {
   const { id } = useParams();
@@ -15,7 +14,7 @@ const SidePanel = (props) => {
         alert('Please Sign in ')
       }
       else {
-        navigate(`/services/${id}/book_appointment`);
+        navigate(`/book_appointment/${id}`);
       }
     }
     catch (err) {

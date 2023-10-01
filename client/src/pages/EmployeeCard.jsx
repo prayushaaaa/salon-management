@@ -7,7 +7,7 @@ const EmployeeCard = ({ item, index }) => {
     const { name, specialization, photo } = item;
     return <div className='p-3 lg:p-5'>
         <div>
-            <img src={photo} alt='employee photo' />
+            <img src={`${photo}`} alt='employee photo' />
         </div>
 
         <h2 className='text-[18px] leading-[30px] lg:text-[26px] lg:leading-9 text-headingColor font-[700] mt-3 lg:mt-5'>

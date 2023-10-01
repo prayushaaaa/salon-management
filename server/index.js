@@ -8,6 +8,7 @@ import customerRoute from "./routes/customer.js";
 import serviceRoute from './routes/services.js';
 import employeeRoute from './routes/employees.js';
 import reviewRoute from './routes/reviews.js';
+import appointmentRoute from './routes/appointments.js';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use('/api/customers', customerRoute);
 app.use('/api/services', serviceRoute);
 app.use('/api/employees', employeeRoute);
 app.use('/api/reviews', reviewRoute);
+app.use('/api/appointments', appointmentRoute);
 
 
 //databse connection

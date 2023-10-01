@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import ServiceList from '../components/ServiceList';
-import { services } from '../assets/data/services';
+import useFetch from '../hooks/useFetch';
+import { BASE_URL } from '../../utils/config';
 
 const Services = () => {
+    const { data: services } = useFetch(`${BASE_URL}/services`);
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);

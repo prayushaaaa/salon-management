@@ -36,6 +36,7 @@ const FeedbackForm = () => {
                 },
                 body: JSON.stringify(reviewObj)
             });
+
             const result = await res.json();
             if (!res.ok) alert(result.message);
             alert('Review submitted!');

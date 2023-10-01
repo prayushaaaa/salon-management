@@ -1,0 +1,56 @@
+import Booking from "../models/BookingSchema.js";
+import Customer from "../models/CustomerSchema.js";
+import ReviewSchema from "../models/ReviewSchema.js";
+import Service from "../models/ServiceSchema.js";
+import Employee from "../models/EmployeeSchema.js";
+
+
+export const getAllAppointments = async (req, res) => {
+    try {
+        const appointments = await Booking.find({});
+        res.status(200).json({ success: true, message: "Appointments found", data: appointments });
+    } catch (err) {
+        res.status(404).json({ status: false, message: "Not found" });
+    }
+};
+
+
+export const addAppointment = async (req, res) => {
+    try {
+        req.body.status = "pending";
+        const newAppointment = new Booking(req.body);
+        await newAppointment.save();
+
+        const user = await Customer.findById(newAppointment.user._id);
+
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        user.appointments.push(newAppointment);
+        await user.save();
+
+        const service = await Service.findById(newAppointment.service._id);
+
+        if (!service) {
+            throw new Error("Service not found");
+        }
+
+        const employees = await Employee.find({ category: service.category });
+
+        if (employees.length === 0) {
+            throw new Error("No employees found for this service category");
+        }
+
+        for (const employee of employees) {
+            employee.appointments.push(newAppointment);
+            await employee.save();
+        }
+
+        res.status(200).json({ success: true, message: "Booked successfully." });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Failed to book." });
+    }
+};

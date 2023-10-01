@@ -1,53 +1,94 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import useFetch from "../hooks/useFetch.js";
+import { BASE_URL } from '../../utils/config.js';
+import { AuthContext } from '../context/AuthContext';
+
 
 const BookingAppointment = () => {
+    const { id } = useParams();
+
+    const { data: service, loading, error } = useFetch(`${BASE_URL}/services/${id}`);
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
     const [formData, setFormData] = useState({
-        contactNumber: '',
-        selectedDate: '',
-        selectedTime: '', // New field for time
+        phoneNumber: '',
+        date: '',
+        time: '',
     });
 
-    const [selectedService, setSelectedService] = useState('Example Service Name');
-    const servicePrice = '$50'; // Replace with the actual service price
+    const [isAvailable, setIsAvailable] = useState(false);
 
     const handleInputChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
+
+    const checkAvailability = async e => {
+
+    }
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!formData.contactNumber || !formData.selectedDate || !formData.selectedTime) {
+        if (!formData.phoneNumber || !formData.date || !formData.time) {
             alert('Please fill in all fields');
             return;
         }
+        try {
+            if (!user || user === undefined || user === null) {
+                alert('Please Sign in ')
+            }
 
-        navigate('/booked');
+            const reviewObj = {
+                ...formData,
+                service,
+                user,
+                price: service.price
+            };
+
+            const res = await fetch(`${BASE_URL}/appointments/book_appointment/${id}`, {
+                method: 'post',
+                headers: {
+                    'content-type': 'application/json',
+                    Authorization: `Bearer ${user.token}`
+
+                },
+                body: JSON.stringify(reviewObj)
+            });
+
+            const result = await res.json();
+            if (!res.ok) alert(result.message);
+
+            navigate('/booked');
+        }
+        catch (err) {
+            alert(err.message);
+        }
     }
 
     return (
         <section className='px-5 lg:px-0'>
             <div className='w-full max-w-[570px] mx-auto rounded-lg shadow-md md:p-10'>
                 <h3 className='text-headingColor text-[22px] leading-9 font-bold mb-2'>
-                    Book an Appointment for {selectedService}
+                    Book an Appointment for {service.name}
                 </h3>
                 <p className='text-irisBlueColor text-[18px] leading-6 mb-2'>
-                    Price: {servicePrice}
+                    Price: Rs.{service.price}
                 </p>
                 <form action='' className='py-4 md:py-0' onSubmit={handleSubmit}>
                     <div className='mb-5'>
                         <input
                             type='tel'
                             placeholder='Contact Number'
-                            name='contactNumber'
-                            value={formData.contactNumber}
+                            name='phoneNumber'
+                            value={formData.phoneNumber}
                             onChange={handleInputChange}
                             className='w-full py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer'
                             required
@@ -57,8 +98,8 @@ const BookingAppointment = () => {
                         <input
                             type='date'
                             placeholder='Select Date'
-                            name='selectedDate'
-                            value={formData.selectedDate}
+                            name='date'
+                            value={formData.date}
                             onChange={handleInputChange}
                             className='w-full py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer'
                             required
@@ -68,8 +109,8 @@ const BookingAppointment = () => {
                         <input
                             type='time'
                             placeholder='Select Time'
-                            name='selectedTime'
-                            value={formData.selectedTime}
+                            name='time'
+                            value={formData.time}
                             onChange={handleInputChange}
                             className='w-full py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer'
                             required
@@ -82,10 +123,18 @@ const BookingAppointment = () => {
                     </div>
                     <div className='mt-7'>
                         <button
+                            className='w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3'
+                            onClick={checkAvailability}
+                        >
+                            Check Availability
+                        </button>
+
+                        <button
                             type='submit'
                             className='w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3'
+
                         >
-                            Book Appointment
+                            Book Now
                         </button>
                     </div>
                 </form>
