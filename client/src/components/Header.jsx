@@ -23,7 +23,7 @@ const navLinks = [
     {
         path: '/contact',
         display: 'Contact'
-    }
+    },
 ]
 
 const Header = () => {
@@ -80,14 +80,15 @@ const Header = () => {
                 <div className='flex items-center gap-4'>
                     {
                         user ? <>
+                            <h5 className='mb-0'>{user.name}</h5>
                             <div className=''>
-                                <Link to='/'>
+                                <Link to={`profile/${user._id}`}>
                                     <figure className='w-[35px] h-[35px] rounded-full cursor-pointer'>
                                         <img src={userImage} className='w-full rounded-full' alt='profile' />
                                     </figure>
                                 </Link>
                             </div>
-                            <h5 className='mb-0'>{user.name}</h5>
+
                             <button className='bg-primaryColor py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]' onClick={logout}>logout</button>
                         </> : <Link to='/Login'>
                             <button className='bg-primaryColor py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]'>Login</button>

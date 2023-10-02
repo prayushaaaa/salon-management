@@ -9,6 +9,7 @@ import ServiceDetails from '../pages/ServiceDetails';
 import { Routes, Route } from 'react-router-dom';
 import Booking from '../pages/Booking';
 import Booked from '../pages/Booked';
+import Profile from '../pages/Profile';
 
 const Routers = () => {
     return <Routes>
@@ -22,6 +23,7 @@ const Routers = () => {
         <Route path='/services/:id' element={<ServiceDetails />} />
         <Route path='/book_appointment/:id' element={<Booking />} />
         <Route path='/booked' element={<Booked />} />
+        <Route path='/profile/:id' element={<Profile />} />
     </Routes>
 }
 

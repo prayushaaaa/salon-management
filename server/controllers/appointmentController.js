@@ -54,3 +54,37 @@ export const addAppointment = async (req, res) => {
         res.status(500).json({ success: false, message: "Failed to book." });
     }
 };
+
+export const checkAvailability = async (req, res) => {
+    try {
+        const { employee, date, time } = req.body;
+
+        const employeeBookings = await Booking.find({ employee: employee._id });
+
+        const sameDateItems = employeeBookings.filter(item => item.date == date);
+
+        const hour = Number(time.split(":")[0]);
+        const minute = Number(time.split(":")[1]);
+
+        const sameTime = sameDateItems.filter((item) => {
+            const hr = Number(item.time.split(":")[0]);
+            const min = Number(item.time.split(":")[1]);
+
+            const timeDiff = Math.abs(hr * 60 + min - (hour * 60 + minute));
+
+            return timeDiff <= 60;
+
+        });
+
+        if (sameTime.length > 0) {
+            return res.status(200).json({ success: true, message: "Checked availability.", data: false });
+        }
+
+        res.status(200).json({ success: true, message: "Checked availability.", data: true });
+    }
+
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Failed to check availability." });
+    }
+};

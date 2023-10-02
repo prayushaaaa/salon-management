@@ -12,8 +12,6 @@ const BookingAppointment = () => {
     const { data: employees } = useFetch(`${BASE_URL}/employees`);
 
     const employee = employees.find(employee => service.category == employee.category);
-    // console.log(employees);
-    console.log(employee);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -38,6 +36,11 @@ const BookingAppointment = () => {
 
     const checkAvailability = async (e) => {
         e.preventDefault();
+
+        if (!formData.date || !formData.time) {
+            alert('Please fill in all fields');
+            return;
+        }
 
         try {
             const requestBody = {
@@ -87,6 +90,7 @@ const BookingAppointment = () => {
             alert('Please fill in all fields');
             return;
         }
+
         try {
             if (!user || user === undefined || user === null) {
                 alert('Please Sign in ')

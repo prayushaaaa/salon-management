@@ -7,7 +7,7 @@ const generateToken = (user) => {
     return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET_KEY, {
         expiresIn: "15d"
     });
-}
+};
 
 export const register = async (req, res) => {
     const { email, password, name, role, photo, gender } = req.body;
@@ -76,9 +76,10 @@ export const login = async (req, res) => {
 
         const token = generateToken(user);
 
-        const { password, role, appointments, ...rest } = user._doc
+        const { password, role, appointments, points, ...rest } = user._doc
 
-        res.status(200).json({ status: true, message: "Successfully logged in", data: { ...rest, token }, role });
+        res.status(200).json({ status: true, message: "Successfully logged in", data: { ...rest, token, role, appointments, points } });
+
     }
     catch (err) {
         res.status(500).json({ status: false, message: "Login failed!" });
