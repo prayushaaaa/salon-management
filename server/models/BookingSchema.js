@@ -12,15 +12,9 @@ const bookingSchema = new mongoose.Schema(
       ref: "Customer",
       required: true,
     },
-    employee: {
-      type: mongoose.Types.ObjectId,
-      ref: "Employee",
-      required: true,
-    },
     price: { type: String, required: true },
     date: {
-      // unique: true,
-      type: String,
+      type: Date,
       required: true,
     },
     time: {
