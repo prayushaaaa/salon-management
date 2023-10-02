@@ -3,7 +3,7 @@ import { updateEmployee, deleteEmployee, getSingleEmployee, allEmployee } from "
 import { authenticate, restrict } from "../auth/verifyToken.js";
 
 const router = express.Router();
-router.get('/:id', authenticate, getSingleEmployee);
+router.get('/:id', getSingleEmployee);
 router.get('/', allEmployee);
 router.put('/:id', authenticate, restrict(["employee"]), updateEmployee);
 router.delete('/:id', authenticate, restrict(["employee"]), deleteEmployee);

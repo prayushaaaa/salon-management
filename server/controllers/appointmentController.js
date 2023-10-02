@@ -88,3 +88,16 @@ export const checkAvailability = async (req, res) => {
         res.status(500).json({ success: false, message: "Failed to check availability." });
     }
 };
+
+export const deleteAppointment = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await Booking.findByIdAndDelete(id);
+
+        res.status(200).json({ success: true, message: "Successfully deleted." });
+    }
+    catch (err) {
+        res.status(500).json({ success: false, message: "Failed to delete." });
+    }
+
+}
