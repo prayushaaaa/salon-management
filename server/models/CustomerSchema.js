@@ -11,7 +11,7 @@ const CustomerSchema = new mongoose.Schema({
     enum: ["customer", "employee"],
     default: "customer",
   },
-  points: { type: Number },
+  points: { type: Number, default: 0 },
   gender: { type: String, enum: ["male", "female", "other"] },
   isApproved: {
     type: String,

@@ -99,5 +99,47 @@ export const deleteAppointment = async (req, res) => {
     catch (err) {
         res.status(500).json({ success: false, message: "Failed to delete." });
     }
-
 }
+
+export const approveAppointment = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await Booking.findByIdAndUpdate(id, { status: "approved" });
+        res.status(200).json({ success: true, message: "Status updated." })
+    }
+    catch (err) {
+        res.status(500).json({ success: false, message: "Failed to update status." });
+    }
+}
+
+export const rejectAppointment = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await Booking.findByIdAndUpdate(id, { status: "rejected" });
+        res.status(200).json({ success: true, message: "Status updated." })
+    }
+    catch (err) {
+        res.status(500).json({ success: false, message: "Failed to update status." })
+    }
+}
+
+export const updatePaymentStatus = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await Booking.findByIdAndUpdate(id, { isPaid: true });
+
+        const appointment = await Booking.findById(id);
+        const service = await Service.findById(appointment.service._id);
+        const user = await Customer.findById(appointment.user._id);
+        console.log(user);
+        let updatedPoints = service.points + user.points;
+
+        await Customer.findByIdAndUpdate(appointment.user._id, { points: updatedPoints });
+        console.log(user);
+
+        res.status(200).json({ success: true, message: "Status updated." })
+    }
+    catch (err) {
+        res.status(500).json({ success: false, message: "Failed to update status." })
+    }
+} 

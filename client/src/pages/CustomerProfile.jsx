@@ -60,7 +60,7 @@ const CustomerProfile = () => {
                     {/* Loyalty Points */}
                     <div className='text-center mb-8'>
                         <h2 className='text-2xl font-bold'>Loyalty Points</h2>
-                        <p className='text-gray-600'>{user.points} points</p>
+                        <p className='text-gray-600'>{user.points ? user.points : 0}</p>
                     </div>
 
                     {/* Appointments Section */}

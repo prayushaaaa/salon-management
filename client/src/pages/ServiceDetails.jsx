@@ -68,7 +68,7 @@ const ServiceDetails = () => {
                         </div>
 
                         <div className='mt-[50px]'>
-                            {tab === 'about' && <ServiceAbout key={service._id} name={service.name} about={service.desc} />}
+                            {tab === 'about' && <ServiceAbout key={service._id} name={service.name} about={service.about} />}
                             {tab === 'feedback' && <Feedback />}
                         </div>
                     </div>

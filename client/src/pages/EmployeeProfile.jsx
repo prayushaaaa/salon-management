@@ -27,6 +27,50 @@ const EmployeeProfile = () => {
         setCurrentPage(newPage);
     };
 
+    const handlePaymentStatus = async (id) => {
+        const res = await fetch(`${BASE_URL}/appointments/update_payment_status/${id}`, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!res.ok) {
+            const result = await res.json();
+            alert(result.message);
+        }
+    };
+
+    const handleApproveAppointment = async (id) => {
+        const res = await fetch(`${BASE_URL}/appointments/approve_appointment/${id}`, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!res.ok) {
+            const result = await res.json();
+            alert(result.message);
+        }
+    };
+
+    const handleRejectAppointment = async (id) => {
+        const res = await fetch(`${BASE_URL}/appointments/reject_appointment/${id}`, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!res.ok) {
+            const result = await res.json();
+            alert(result.message);
+        }
+    };
+
+
+
     return (
         <section className='bg-gray-100 py-10'>
             <div className='container'>
@@ -42,12 +86,6 @@ const EmployeeProfile = () => {
                         <p className='text-gray-600'>{user.email}</p>
                     </div>
 
-                    {/* Loyalty Points */}
-                    <div className='text-center mb-8'>
-                        <h2 className='text-2xl font-bold'>Loyalty Points</h2>
-                        <p className='text-gray-600'>{user.points} points</p>
-                    </div>
-
                     {/* Appointments Section */}
                     <div className='mb-8'>
                         <h2 className='text-2xl font-bold mb-4'>Upcoming Appointments</h2>
@@ -58,17 +96,32 @@ const EmployeeProfile = () => {
                                         <div>
                                             <h3 className='text-lg font-semibold'>{appointment.date}</h3>
                                             <p className='text-gray-600'>{appointment.time} - {appointment.service}</p>
-                                            <p className='text-gray-600 mt-2'>{appointment.price}</p>
-                                            <p className={`mt-2 text-sm font-semibold ${appointment.status === 'Confirmed' ? 'text-green-500' : 'text-blue-500'}`}>
-                                                Status: {appointment.status}
-                                            </p>
+                                            <p className='text-gray-600 mt-2'>Rs. {appointment.price}</p>
+                                            <p>Status:
+                                                <span className={`mt-2 ml-2 text-sm font-semibold ${appointment.status === 'rejected' ? 'text-red-500' : 'text-blue-500'}`}>
+                                                    {appointment.status}
+                                                </span></p>
                                         </div>
-                                        <button
-                                            onClick={() => handleDeleteAppointment(appointment._id)}
-                                            className='px-3 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 flex items-center'
+                                        {appointment.status == 'pending' && (<div className='flex gap-2'>
+                                            <button
+                                                onClick={() => handleRejectAppointment(appointment._id)}
+                                                className='px-3 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 flex items-center'
+                                            >
+                                                Reject
+                                            </button>
+                                            <button
+                                                onClick={() => handleApproveAppointment(appointment._id)}
+                                                className='px-3 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center'
+                                            >
+                                                Approve
+                                            </button>
+                                        </div>)}
+                                        {!appointment.isPaid && appointment.status == 'approved' && (<button
+                                            onClick={() => handlePaymentStatus(appointment._id)}
+                                            className='px-3 py-3 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 flex items-center'
                                         >
-                                            <AiOutlineDelete className='mr-1' />
-                                        </button>
+                                            Payment made
+                                        </button>)}
                                     </div>
                                 </li>
                             ))}
@@ -90,7 +143,7 @@ const EmployeeProfile = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 };
 
