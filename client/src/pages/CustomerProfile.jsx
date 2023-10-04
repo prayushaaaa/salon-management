@@ -6,7 +6,6 @@ import { BASE_URL } from '../../utils/config.js';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 const CustomerProfile = () => {
-    const [isEmployee, setIsEmployee] = useState(0);
 
     const user = useContext(AuthContext).user;
 
@@ -73,7 +72,7 @@ const CustomerProfile = () => {
                                         <div>
                                             <h3 className='text-lg font-semibold'>{appointment.date}</h3>
                                             <p className='text-gray-600'>{appointment.time} - {appointment.service}</p>
-                                            <p className='text-gray-600 mt-2'>{appointment.price}</p>
+                                            <p className='text-gray-600 mt-2'>Rs. {appointment.price}</p>
                                             <p className={`mt-2 text-sm font-semibold ${appointment.status === 'Confirmed' ? 'text-green-500' : 'text-blue-500'}`}>
                                                 Status: {appointment.status}
                                             </p>

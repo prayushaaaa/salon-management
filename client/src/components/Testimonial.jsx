@@ -45,16 +45,11 @@ const Testimonial = () => {
                             <div className='flex items-center gap-[13px]'>
                                 <img src={customerAvatar} alt='Cutomer Avatar'></img>
                                 <div>
-                                    {/* <h4 className='text-[18px] leading-[30px] font-semibold text-headingColor'>{review?.user.name || "Unknown User"}</h4> */}
+                                    <h4 className='text-[18px] leading-[30px] font-semibold text-headingColor'>{review?.user.name || "Unknown User"}</h4>
                                     <div className='flex items-center gap-[2px]'>
                                         {
                                             renderStars(review.rating)
                                         }
-                                        {/* <HiStar className='text-yellowColor w-[18px] h-5' />
-                                        
-                                        <HiStar className='text-yellowColor w-[18px] h-5' />
-                                        <HiStar className='text-yellowColor w-[18px] h-5' />
-                                        <HiStar className='text-yellowColor w-[18px] h-5' /> */}
                                     </div>
                                 </div>
                             </div>

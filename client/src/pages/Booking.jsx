@@ -124,6 +124,12 @@ const BookingAppointment = () => {
         }
     }
 
+    let date = new Date().toJSON().slice(0, 10);
+
+    const currentHour = new Date().getHours().toString().padStart(2, '0');
+    const currentMinute = new Date().getMinutes().toString().padStart(2, '0');
+    const currentTime = currentHour + ':' + currentMinute;
+
     return (
         <section className='px-5 lg:px-0'>
             <div className='w-full max-w-[570px] mx-auto rounded-lg shadow-md md:p-10'>
@@ -151,6 +157,7 @@ const BookingAppointment = () => {
                             placeholder='Select Date'
                             name='date'
                             value={formData.date}
+                            min={date}
                             onChange={handleInputChange}
                             className='w-full py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer'
                             required
@@ -165,7 +172,7 @@ const BookingAppointment = () => {
                             onChange={handleInputChange}
                             className='w-full py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[22px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer'
                             required
-                            min='09:00'
+                            min="9:00"
                             max='17:00'
                         />
                         <p className='text-irisBlueColor text-[16px] leading-6 mt-2'>

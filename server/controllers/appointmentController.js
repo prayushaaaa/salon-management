@@ -131,11 +131,9 @@ export const updatePaymentStatus = async (req, res) => {
         const appointment = await Booking.findById(id);
         const service = await Service.findById(appointment.service._id);
         const user = await Customer.findById(appointment.user._id);
-        console.log(user);
         let updatedPoints = service.points + user.points;
 
         await Customer.findByIdAndUpdate(appointment.user._id, { points: updatedPoints });
-        console.log(user);
 
         res.status(200).json({ success: true, message: "Status updated." })
     }
