@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../hooks/useFetch.js';
 import { AuthContext } from '../context/AuthContext';
@@ -6,11 +6,10 @@ import { BASE_URL } from '../../utils/config.js';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 const EmployeeProfile = () => {
-    const [isEmployee, setIsEmployee] = useState(0);
-
     const user = useContext(AuthContext).user;
 
-    const { data: appointments, loading, error } = useFetch(`${BASE_URL}/appointments`);
+    const { data: appointments, loading, error, refetch } = useFetch(`${BASE_URL}/appointments`);
+    const { data: services } = useFetch(`${BASE_URL}/services`);
 
     const allAppointments = appointments.filter(appointment => appointment.employee == user._id);
 
@@ -39,6 +38,9 @@ const EmployeeProfile = () => {
             const result = await res.json();
             alert(result.message);
         }
+        else {
+            refetch();
+        }
     };
 
     const handleApproveAppointment = async (id) => {
@@ -52,6 +54,9 @@ const EmployeeProfile = () => {
         if (!res.ok) {
             const result = await res.json();
             alert(result.message);
+        }
+        else {
+            refetch();
         }
     };
 
@@ -67,9 +72,15 @@ const EmployeeProfile = () => {
             const result = await res.json();
             alert(result.message);
         }
+        else {
+            refetch();
+        }
     };
 
-
+    const getServiceName = (appointment) => {
+        const serviceData = services.find(service => service._id === appointment.service);
+        return serviceData ? serviceData.name : 'Service not found';
+    };
 
     return (
         <section className='bg-gray-100 py-10'>
@@ -78,9 +89,9 @@ const EmployeeProfile = () => {
                     {/* User Information */}
                     <div className='mb-8 text-center'>
                         {/* <img
-                        src={userData.avatar}
-                        alt='User Avatar'
-                        className='w-32 h-32 rounded-full object-cover mx-auto mb-4'
+                            src={userData.photo}
+                            alt='User Avatar'
+                            className='w-32 h-32 rounded-full object-cover mx-auto mb-4'
                         /> */}
                         <h2 className='text-2xl font-bold'>{user.name}</h2>
                         <p className='text-gray-600'>{user.email}</p>
@@ -95,7 +106,7 @@ const EmployeeProfile = () => {
                                     <div className='bg-gray-200 p-4 rounded-lg shadow-md flex justify-between items-center'>
                                         <div>
                                             <h3 className='text-lg font-semibold'>{appointment.date}</h3>
-                                            <p className='text-gray-600'>{appointment.time} - {appointment.service}</p>
+                                            <p className='text-gray-600'>{appointment.time} - {getServiceName(appointment)}</p>
                                             <p className='text-gray-600 mt-2'>Rs. {appointment.price}</p>
                                             <p>Status:
                                                 <span className={`mt-2 ml-2 text-sm font-semibold ${appointment.status === 'rejected' ? 'text-red-500' : 'text-blue-500'}`}>

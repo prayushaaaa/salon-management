@@ -12,7 +12,7 @@ const Feedback = () => {
     const [showFeedbackForm, setShowFeedbackForm] = useState(false);
     const { id } = useParams();
 
-    const { data: responseData, loading, error } = useFetch(`${BASE_URL}/services/${id}/reviews`);
+    const { data: responseData, loading, error, refetch } = useFetch(`${BASE_URL}/services/${id}/reviews`);
     const feedbacks = responseData.filter(item => item.service === id);
 
     return (
@@ -52,7 +52,7 @@ const Feedback = () => {
                             <button className='btn' onClick={() => setShowFeedbackForm(true)}>Give feedback</button>
                         </div>
                     )}
-                    {showFeedbackForm && <FeedbackForm />}
+                    {showFeedbackForm && <FeedbackForm refetch={refetch} />}
                 </div>
             )}
         </div>

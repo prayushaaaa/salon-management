@@ -6,10 +6,10 @@ import { BASE_URL } from '../../utils/config.js';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 const CustomerProfile = () => {
-
     const user = useContext(AuthContext).user;
 
-    const { data: appointments, loading, error } = useFetch(`${BASE_URL}/appointments`);
+    const { data: appointments, loading, error, refetch } = useFetch(`${BASE_URL}/appointments`);
+    const { data: services } = useFetch(`${BASE_URL}/services`);
 
     const allAppointments = appointments.filter(appointment => appointment.user == user._id);
 
@@ -33,12 +33,18 @@ const CustomerProfile = () => {
             .then(response => {
                 if (response.ok) {
                     const updatedAppointments = appointmentsToDisplay.filter(appointment => appointment._id !== appointmentId);
+                    refetch();
                 } else {
                     alert('Failed to delete appointment.')
                 }
             })
             .catch(error => {
             });
+    };
+
+    const getServiceName = (appointment) => {
+        const serviceData = services.find(service => service._id === appointment.service);
+        return serviceData ? serviceData.name : 'Service not found';
     };
 
     return (
@@ -48,9 +54,9 @@ const CustomerProfile = () => {
                     {/* User Information */}
                     <div className='mb-8 text-center'>
                         {/* <img
-                        src={userData.avatar}
-                        alt='User Avatar'
-                        className='w-32 h-32 rounded-full object-cover mx-auto mb-4'
+                            src={userData.avatar}
+                            alt='User Avatar'
+                            className='w-32 h-32 rounded-full object-cover mx-auto mb-4'
                         /> */}
                         <h2 className='text-2xl font-bold'>{user.name}</h2>
                         <p className='text-gray-600'>{user.email}</p>
@@ -71,11 +77,12 @@ const CustomerProfile = () => {
                                     <div className='bg-gray-200 p-4 rounded-lg shadow-md flex justify-between items-center'>
                                         <div>
                                             <h3 className='text-lg font-semibold'>{appointment.date}</h3>
-                                            <p className='text-gray-600'>{appointment.time} - {appointment.service}</p>
-                                            <p className='text-gray-600 mt-2'>Rs. {appointment.price}</p>
+                                            <p className='text-gray-600'>{appointment.time} - {getServiceName(appointment)}</p>
+                                            <p className='text-gray-600 mt-2'>Rs. {appointment.price} {appointment.isPaid ? "(paid)" : "(not paid)"}</p>
                                             <p className={`mt-2 text-sm font-semibold ${appointment.status === 'Confirmed' ? 'text-green-500' : 'text-blue-500'}`}>
                                                 Status: {appointment.status}
                                             </p>
+                                            <p className={`mt-2 italic text-sm bg-green-300 text-green-800 hover:cursor-pointer hover:underline`}>Pay now with esewa to confirm this booking.</p>
                                         </div>
                                         <button
                                             onClick={() => handleDeleteAppointment(appointment._id)}

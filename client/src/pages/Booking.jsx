@@ -129,6 +129,7 @@ const BookingAppointment = () => {
     const currentHour = new Date().getHours().toString().padStart(2, '0');
     const currentMinute = new Date().getMinutes().toString().padStart(2, '0');
     const currentTime = currentHour + ':' + currentMinute;
+    console.log(currentTime);
 
     return (
         <section className='px-5 lg:px-0'>

@@ -3,8 +3,9 @@ import { AuthContext } from '../context/AuthContext';
 import { AiFillStar } from 'react-icons/ai';
 import { BASE_URL } from '../../utils/config.js';
 import { useParams } from 'react-router-dom';
+import useFetch from '../hooks/useFetch';
 
-const FeedbackForm = () => {
+const FeedbackForm = ({ refetch }) => {
     const { id } = useParams();
 
     const [rating, setRating] = useState(0);
@@ -39,6 +40,9 @@ const FeedbackForm = () => {
 
             const result = await res.json();
             if (!res.ok) alert(result.message);
+            else {
+                refetch();
+            }
             alert('Review submitted!');
 
         }
