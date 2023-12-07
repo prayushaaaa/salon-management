@@ -82,7 +82,9 @@ const CustomerProfile = () => {
                                             <p className={`mt-2 text-sm font-semibold ${appointment.status === 'Confirmed' ? 'text-green-500' : 'text-blue-500'}`}>
                                                 Status: {appointment.status}
                                             </p>
-                                            <p className={`mt-2 italic text-sm bg-green-300 text-green-800 hover:cursor-pointer hover:underline`}>Pay now with esewa to confirm this booking.</p>
+                                            {appointment.status === "pending" && <p className={`mt-2 italic text-sm bg-green-200 text-green-800 hover:cursor-pointer hover:underline`}>
+                                                <Link to={`/payment/${appointment._id}`}>Pay now to confirm this booking.</Link>
+                                            </p>}
                                         </div>
                                         <button
                                             onClick={() => handleDeleteAppointment(appointment._id)}

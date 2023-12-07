@@ -31,9 +31,8 @@ const FeedbackForm = ({ refetch }) => {
             const res = await fetch(`${BASE_URL}/services/${id}/reviews`, {
                 method: 'post',
                 headers: {
-                    'content-type': 'application/json',
-                    Authorization: `Bearer ${user.token}`
-
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 },
                 body: JSON.stringify(reviewObj)
             });

@@ -9,6 +9,7 @@ import serviceRoute from './routes/services.js';
 import employeeRoute from './routes/employees.js';
 import reviewRoute from './routes/reviews.js';
 import appointmentRoute from './routes/appointments.js';
+import paymentRoute from './routes/payment.js';
 
 dotenv.config();
 
@@ -21,7 +22,9 @@ const port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({ origin: true }));
+app.use(cors({
+    origin: true,
+}));
 
 app.use('/api/auth', authRoute);
 app.use('/api/customers', customerRoute);
@@ -29,7 +32,7 @@ app.use('/api/services', serviceRoute);
 app.use('/api/employees', employeeRoute);
 app.use('/api/reviews', reviewRoute);
 app.use('/api/appointments', appointmentRoute);
-
+app.use('/api/phonepe', paymentRoute);
 
 //databse connection
 
