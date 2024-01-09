@@ -58,9 +58,9 @@ const Header = () => {
         <div className='container'>
             <div className='flex items-center justify-between'>
                 {/* {logo} */}
-                <div className='w-[35px] h-[35px]'>
+                <div className='flex items-center md:w-[18%] h-auto sm:w-[30%] py-[50px]'>
                     <Link to='/'>
-                        <img src={logo} alt='company logo'></img>
+                        <img src={logo} alt='company logo' className=''></img>
                     </Link>
                 </div>
 

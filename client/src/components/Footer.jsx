@@ -74,7 +74,7 @@ const Footer = () => {
         <div className='container'>
             <div className='flex justify-between flex-col md:flex-row flex-wrap gap-[30px]'>
                 <div>
-                    <img src={logo} alt='' className='h-[55px] w-[55px]' />
+                    <img src={logo} alt='' className='flex items-center md:w-[10%] h-auto sm:w-[30%]' />
                     <p className='text-[16px] leading-7 font-[400] text-textColor mt-4'>
                         Copyright &copy; {year} all rights reserved
                     </p>
