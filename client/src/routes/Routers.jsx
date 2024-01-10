@@ -10,7 +10,7 @@ import { Routes, Route } from 'react-router-dom';
 import Booking from '../pages/Booking';
 import Booked from '../pages/Booked';
 import Profile from '../pages/Profile';
-import PhonePeForm from '../pages/phonepeform';
+import PhonePeForm from '../pages/PhonePeForm';
 import PaymentSuccess from '../pages/PaymentSuccess';
 import { PaymentFailure } from '../pages/PaymentFailure';
 
