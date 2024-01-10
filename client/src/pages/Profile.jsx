@@ -4,7 +4,7 @@ import useFetch from '../hooks/useFetch.js';
 import { AuthContext } from '../context/AuthContext';
 import { BASE_URL } from '../../utils/config.js';
 import { AiOutlineDelete } from 'react-icons/ai';
-import CustomerProfile from './customerProfile';
+import CustomerProfile from './CustomerProfile';
 import EmployeeProfile from './employeeProfile';
 
 const UserProfilePage = () => {
