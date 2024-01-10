@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import { BASE_URL } from '../../utils/config.js';
 import { AiOutlineDelete } from 'react-icons/ai';
 import CustomerProfile from './CustomerProfile';
-import EmployeeProfile from './employeeProfile';
+import EmployeeProfile from './EmployeeProfile';
 
 const UserProfilePage = () => {
     const user = useContext(AuthContext).user;
